@@ -1,0 +1,847 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover" /><title>一年级英语 · Unit 1–6 趣味练习</title><style>
+  :root {
+    --bg: #fff7ed;
+    --card: #ffffff;
+    --ink: #1f2937;
+    --muted: #6b7280;
+    --shadow: 0 8px 22px rgba(251, 146, 60, 0.16);
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    background:
+      radial-gradient(circle at 10% 10%, #ffe4e6 0, transparent 40%),
+      radial-gradient(circle at 90% 0%, #dbeafe 0, transparent 35%),
+      radial-gradient(circle at 80% 80%, #d1fae5 0, transparent 40%),
+      var(--bg);
+    color: var(--ink);
+    min-height: 100vh;
+  }
+  header {
+    position: sticky; top: 0; z-index: 20;
+    backdrop-filter: blur(10px);
+    background: rgba(255,247,237,.92);
+    border-bottom: 1px solid #fed7aa;
+    padding: 6px 10px 8px;
+  }
+  .wrap { max-width: 980px; margin: 0 auto; padding: 10px 12px; }
+  header .wrap { padding-top: 0; padding-bottom: 0; }
+  .toprow {
+    display: flex; align-items: center; gap: 8px; flex-wrap: nowrap;
+  }
+  h1 {
+    margin: 0;
+    font-size: clamp(1rem, 2.6vw, 1.25rem);
+    display: flex; align-items: center; gap: 6px;
+    white-space: nowrap;
+  }
+  .stars {
+    margin-left: auto;
+    background: #fff;
+    border: 1.5px solid #fde68a;
+    border-radius: 999px;
+    padding: 3px 10px;
+    font-weight: 700;
+    font-size: .9rem;
+    color: #b45309;
+  }
+  .unit-tabs, .mode-tabs {
+    display: flex; flex-wrap: wrap; gap: 5px; margin-top: 6px;
+  }
+  button, .chip { border: none; cursor: pointer; font: inherit; font-weight: 700; touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+  .chip {
+    padding: 5px 10px;
+    border-radius: 999px;
+    background: #fff;
+    border: 1.5px solid #fdba74;
+    color: #9a3412;
+    font-size: .82rem;
+    line-height: 1.2;
+  }
+  .chip.active {
+    background: linear-gradient(135deg, #fb923c, #fb7185);
+    color: #fff;
+    border-color: transparent;
+  }
+  .mode-tabs .chip { border-color: #93c5fd; color: #1d4ed8; }
+  .mode-tabs .chip.active {
+    background: linear-gradient(135deg, #60a5fa, #a78bfa);
+    color: #fff;
+  }
+  .panel {
+    margin-top: 10px;
+    background: var(--card);
+    border-radius: 20px;
+    padding: 14px;
+    box-shadow: var(--shadow);
+    border: 2px solid #ffedd5;
+  }
+  .panel h2 { margin: 0 0 4px; font-size: 1.15rem; }
+  .hint { color: var(--muted); margin: 0 0 10px; font-size: .9rem; }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 10px;
+  }
+  .card {
+    background: linear-gradient(180deg, #fff, #fff7ed);
+    border: 2px solid #fed7aa;
+    border-radius: 16px;
+    padding: 12px 8px;
+    text-align: center;
+    cursor: pointer;
+    user-select: none;
+  }
+  .card:hover { transform: translateY(-2px); }
+  .card .emoji { font-size: 2.2rem; line-height: 1; display: block; margin-bottom: 4px; }
+  .card .en { font-size: 1.05rem; font-weight: 800; }
+  .card .zh { color: var(--muted); font-size: .8rem; margin-top: 2px; }
+  .card .letter {
+    display: inline-block; background: #fef3c7; color: #b45309;
+    border-radius: 7px; padding: 1px 6px; font-weight: 800; margin-bottom: 2px; font-size: .8rem;
+  }
+  .actions { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0; }
+  .btn {
+    padding: 9px 14px; border-radius: 12px;
+    background: linear-gradient(135deg, #34d399, #60a5fa);
+    color: #fff; font-weight: 800; box-shadow: 0 4px 12px rgba(96,165,250,.3);
+  }
+  .btn.alt { background: linear-gradient(135deg, #fb923c, #fb7185); }
+  .btn.ghost { background: #fff; color: #1d4ed8; border: 2px solid #93c5fd; box-shadow: none; }
+  .game-box {
+    min-height: 160px; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 12px; text-align: center;
+  }
+  .big-emoji { font-size: 4rem; }
+  .prompt { font-size: clamp(1.2rem, 3.5vw, 1.7rem); font-weight: 900; }
+  .choices { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+  .choice {
+    min-width: 100px; padding: 12px 14px; border-radius: 14px;
+    background: #fff; border: 3px solid #fdba74; font-size: 1.1rem; font-weight: 800;
+  }
+  .choice.correct { border-color: #34d399; background: #ecfdf5; }
+  .choice.wrong { border-color: #fb7185; background: #fff1f2; animation: shake .35s; }
+  @keyframes shake {
+    0%,100%{transform:translateX(0)} 25%{transform:translateX(-6px)} 75%{transform:translateX(6px)}
+  }
+  .spell-input {
+    font-size: 1.4rem; font-weight: 800; letter-spacing: .1em; text-align: center;
+    padding: 10px 14px; border-radius: 12px; border: 3px solid #93c5fd; width: min(300px, 90%); outline: none;
+  }
+  .progress { height: 8px; background: #ffedd5; border-radius: 999px; overflow: hidden; margin: 4px 0 2px; }
+  .progress > i { display: block; height: 100%; width: 0%; background: linear-gradient(90deg, #fb923c, #34d399); transition: width .3s; }
+  .feedback { min-height: 24px; font-weight: 800; font-size: 1rem; }
+  .feedback.ok { color: #059669; }
+  .feedback.bad { color: #e11d48; }
+  .scramble-bank, .scramble-answer {
+    display: flex; flex-wrap: wrap; gap: 8px; justify-content: center;
+    min-height: 48px; padding: 8px; border-radius: 12px;
+  }
+  .scramble-answer { background: #f0fdf4; border: 2px dashed #86efac; margin-bottom: 6px; }
+  .scramble-bank { background: #fff7ed; border: 2px dashed #fdba74; }
+  .word-chip {
+    padding: 8px 10px; border-radius: 10px; background: #fff;
+    border: 2px solid #a78bfa; font-weight: 800;
+  }
+  .match-board { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  @media (max-width: 640px) { .match-board { grid-template-columns: 1fr; } }
+  .match-col-title { font-weight: 800; color: #9a3412; margin-bottom: 6px; text-align: center; font-size: .95rem; }
+  .match-pics, .match-words { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .pic-tile {
+    aspect-ratio: 1; border-radius: 18px; border: 3px solid #fdba74;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 4px; cursor: pointer; padding: 8px;
+    box-shadow: 0 6px 14px rgba(251,146,60,.18);
+  }
+  .pic-tile.selected { border-color: #60a5fa; box-shadow: 0 0 0 3px rgba(96,165,250,.35); }
+  .pic-tile .pic-emoji { font-size: clamp(2.8rem, 9vw, 4.6rem); line-height: 1; }
+  .pic-tile .pic-zh { font-size: .85rem; font-weight: 700; color: #9a3412; }
+  .word-tile {
+    min-height: 64px; border-radius: 14px; border: 3px solid #a78bfa;
+    background: #fff; font-size: clamp(1.05rem, 3.2vw, 1.35rem); font-weight: 900; cursor: pointer;
+  }
+  .word-tile.selected { border-color: #60a5fa; background: #eff6ff; }
+  .chant-block {
+    margin-bottom: 14px; padding: 12px; border-radius: 16px;
+    background: linear-gradient(180deg, #fff, #fff7ed); border: 2px solid #fed7aa;
+  }
+  .chant-block h3 { margin: 0 0 8px; color: #9a3412; font-size: 1rem; }
+  .phrase-line {
+    background: #eff6ff; border: 2px solid #93c5fd; border-radius: 12px;
+    padding: 10px 12px; margin: 6px 0; display: flex; gap: 8px; align-items: center;
+    cursor: pointer; font-size: clamp(1rem, 2.6vw, 1.15rem); font-weight: 750;
+  }
+  .phrase-line:hover { background: #dbeafe; }
+  .phrase-line.singing { background: #fef3c7; border-color: #fbbf24; }
+  .phrase-line .num {
+    flex: 0 0 auto; width: 24px; height: 24px; border-radius: 50%;
+    background: #60a5fa; color: #fff; display: grid; place-items: center; font-size: .75rem;
+  }
+  footer { text-align: center; color: var(--muted); font-size: .8rem; padding: 16px 12px 28px; }
+  .opt-row {
+    display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+    margin: 0 0 10px; font-weight: 700; color: #9a3412; font-size: .92rem;
+  }
+  .opt-row label {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: #fff7ed; border: 1.5px solid #fdba74; border-radius: 999px;
+    padding: 5px 12px; cursor: pointer; user-select: none;
+  }
+  .opt-row input { width: 16px; height: 16px; accent-color: #fb923c; }
+
+  @media (max-width: 768px) {
+    header { padding: 4px 6px 6px; }
+    .wrap { padding: 8px; }
+    .chip { padding: 6px 10px; font-size: .8rem; }
+    .panel { padding: 12px; border-radius: 16px; }
+    .match-board { grid-template-columns: 1fr; gap: 10px; }
+    .match-pics, .match-words { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .pic-tile .pic-emoji { font-size: clamp(2.4rem, 12vw, 3.6rem); }
+    .word-tile { min-height: 52px; font-size: 1rem; }
+    .grid { grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 8px; }
+    .choice { min-width: 88px; padding: 10px 12px; font-size: 1rem; }
+    .spell-input { font-size: 1.2rem; width: 100%; }
+    .btn { padding: 10px 12px; font-size: .92rem; }
+  }
+  @media (max-width: 420px) {
+    .match-pics, .match-words { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    h1 { font-size: .95rem; }
+  }
+  @media (min-width: 769px) and (max-width: 1024px) {
+    .wrap { max-width: 920px; }
+    .match-pics, .match-words { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  }
+  .confetti { position: fixed; inset: 0; pointer-events: none; z-index: 50; overflow: hidden; }
+</style></head><body><header><div class="wrap"><div class="toprow"><h1>🎈 一年级英语趣味练习</h1><div class="stars" id="starBox">⭐ 0</div></div><div class="unit-tabs" id="unitTabs"></div><div class="mode-tabs" id="modeTabs"></div></div></header><main class="wrap"><div class="progress"><i id="bar"></i></div><div id="app" class="panel"></div></main><footer>课本 Chants · Unit 1–6 · 本地单页，浏览器语音朗读</footer><div class="confetti" id="confetti"></div>
+<script>
+const DATA = {
+  unit1: {
+    short: "U1 家庭",
+    title: "Unit 1 · What is your family like?",
+    words: [
+      { en: "family", zh: "家人", emoji: "👨‍👩‍👧" },
+      { en: "mum", zh: "妈妈", emoji: "👩" },
+      { en: "dad", zh: "爸爸", emoji: "👨" },
+      { en: "she", zh: "她", emoji: "👉👩" },
+      { en: "he", zh: "他", emoji: "👉👨" },
+      { en: "kind", zh: "友善的", emoji: "💛" },
+      { en: "loves", zh: "爱", emoji: "❤️" },
+      { en: "ant", zh: "蚂蚁", emoji: "🐜", letter: "Aa" },
+      { en: "bear", zh: "熊", emoji: "🐻", letter: "Bb" },
+      { en: "cow", zh: "奶牛", emoji: "🐄", letter: "Cc" },
+      { en: "dog", zh: "狗", emoji: "🐶", letter: "Dd" }
+    ],
+    chants: [
+      ["You can see my family.", "Who is she?", "She's my mum.", "Can you see?", "She is kind", "and she loves me."],
+      ["You can see my family.", "Who is he?", "He's my dad.", "Can you see?", "He is kind", "and he loves me."]
+    ],
+    letterLines: [
+      ["A for ant.", "B for bear.", "Ant, ant, ant.", "Bear, bear, bear."],
+      ["C for cow.", "D for dog.", "A cow and a dog.", "A dog and a cow."]
+    ],
+    sentences: [
+      { en: "She's my mum.", zh: "她是我的妈妈。" },
+      { en: "He's my dad.", zh: "他是我的爸爸。" },
+      { en: "She is kind and she loves me.", zh: "她很友善，她爱我。" },
+      { en: "A cow and a dog.", zh: "一头牛和一条狗。" }
+    ]
+  },
+  unit2: {
+    short: "U2 心情",
+    title: "Unit 2 · How are you today?",
+    words: [
+      { en: "cold", zh: "冷的", emoji: "🥶" },
+      { en: "hot", zh: "热的", emoji: "🥵" },
+      { en: "thirsty", zh: "渴的", emoji: "🥤" },
+      { en: "hungry", zh: "饿的", emoji: "😋" },
+      { en: "elephant", zh: "大象", emoji: "🐘", letter: "Ee" },
+      { en: "frog", zh: "青蛙", emoji: "🐸", letter: "Ff" },
+      { en: "giraffe", zh: "长颈鹿", emoji: "🦒", letter: "Gg" },
+      { en: "hen", zh: "母鸡", emoji: "🐔", letter: "Hh" },
+      { en: "big", zh: "大的", emoji: "🔼" },
+      { en: "small", zh: "小的", emoji: "🔽" },
+      { en: "tall", zh: "高的", emoji: "📏" },
+      { en: "short", zh: "矮的", emoji: "📐" }
+    ],
+    chants: [
+      ["Hi, May.", "How are you?", "I'm cold."],
+      ["Hi, David.", "How are you?", "I'm hot."],
+      ["Hi, Sally.", "How are you?", "I'm thirsty."],
+      ["Hi, Bob.", "How are you?", "I'm hungry."]
+    ],
+    letterLines: [
+      ["E for elephant.", "F for frog.", "A big elephant", "and a small frog."],
+      ["G for giraffe.", "H for hen.", "The giraffe is tall.", "The hen is short."]
+    ],
+    sentences: [
+      { en: "How are you?", zh: "你好吗？" },
+      { en: "I'm cold.", zh: "我很冷。" },
+      { en: "I'm hot.", zh: "我很热。" },
+      { en: "I'm thirsty.", zh: "我很渴。" },
+      { en: "I'm hungry.", zh: "我很饿。" },
+      { en: "The giraffe is tall.", zh: "长颈鹿很高。" },
+      { en: "The hen is short.", zh: "母鸡很矮。" }
+    ]
+  },
+  unit3: {
+    short: "U3 上学",
+    title: "Unit 3 · What do you take to school?",
+    words: [
+      { en: "rulers", zh: "尺子", emoji: "📏" },
+      { en: "pencils", zh: "铅笔", emoji: "✏️" },
+      { en: "erasers", zh: "橡皮", emoji: "🧽" },
+      { en: "pencil case", zh: "铅笔盒", emoji: "🧰" },
+      { en: "one", zh: "一", emoji: "1️⃣" },
+      { en: "two", zh: "二", emoji: "2️⃣" },
+      { en: "three", zh: "三", emoji: "3️⃣" },
+      { en: "four", zh: "四", emoji: "4️⃣" },
+      { en: "insect", zh: "昆虫", emoji: "🐛", letter: "Ii" },
+      { en: "jellyfish", zh: "水母", emoji: "🪼", letter: "Jj" },
+      { en: "kangaroo", zh: "袋鼠", emoji: "🦘", letter: "Kk" },
+      { en: "lion", zh: "狮子", emoji: "🦁", letter: "Ll" }
+    ],
+    chants: [
+      ["Look at the rulers!", "One, two, three, four.", "Two for you", "and two for me."],
+      ["Look at the pencils!", "One, two, three.", "Two for you", "and one for me."],
+      ["Look at the erasers!", "One, two.", "One for you", "and one for me."],
+      ["Look at the pencil case!", "Just one.", "It is for you."]
+    ],
+    letterLines: [
+      ["I for insect.", "J for jellyfish.", "The insect can fly.", "The jellyfish can swim."],
+      ["K for kangaroo.", "L for lion.", "The kangaroo has a big bag!", "The lion has a big head!"]
+    ],
+    sentences: [
+      { en: "Look at the rulers!", zh: "看这些尺子！" },
+      { en: "Two for you and two for me.", zh: "两个给你，两个给我。" },
+      { en: "Look at the pencil case!", zh: "看这个铅笔盒！" },
+      { en: "The insect can fly.", zh: "昆虫会飞。" },
+      { en: "The jellyfish can swim.", zh: "水母会游泳。" },
+      { en: "The kangaroo has a big bag!", zh: "袋鼠有个大袋子！" },
+      { en: "The lion has a big head!", zh: "狮子有个大脑袋！" }
+    ]
+  },
+  unit4: {
+    short: "U4 我会",
+    title: "Unit 4 · What can you do?",
+    words: [
+      { en: "draw", zh: "画画", emoji: "🎨" },
+      { en: "write", zh: "写字", emoji: "✍️" },
+      { en: "read", zh: "阅读", emoji: "📖" },
+      { en: "sing", zh: "唱歌", emoji: "🎤" },
+      { en: "dance", zh: "跳舞", emoji: "💃" },
+      { en: "rainbow", zh: "彩虹", emoji: "🌈" },
+      { en: "books", zh: "书本", emoji: "📚" },
+      { en: "song", zh: "歌曲", emoji: "🎵" },
+      { en: "monkey", zh: "猴子", emoji: "🐵", letter: "Mm" },
+      { en: "nightingale", zh: "夜莺", emoji: "🐦", letter: "Nn" },
+      { en: "ox", zh: "公牛", emoji: "🐂", letter: "Oo" },
+      { en: "pig", zh: "猪", emoji: "🐷", letter: "Pp" }
+    ],
+    chants: [
+      ["I can draw.", "I can draw a rainbow."],
+      ["I can write.", "I can write Chinese."],
+      ["I can read.", "I can read books."],
+      ["I can sing.", "I can sing a song."],
+      ["I can dance.", "I can sing and dance."],
+      ["I'm great.", "I can do many things."]
+    ],
+    letterLines: [
+      ["M for monkey.", "N for nightingale.", "I can see a monkey.", "I can see a nightingale."],
+      ["O for ox.", "P for pig.", "The ox works.", "The pig sleeps."]
+    ],
+    sentences: [
+      { en: "I can draw a rainbow.", zh: "我会画彩虹。" },
+      { en: "I can write Chinese.", zh: "我会写中文。" },
+      { en: "I can read books.", zh: "我会看书。" },
+      { en: "I can sing a song.", zh: "我会唱一首歌。" },
+      { en: "I can sing and dance.", zh: "我会唱也会跳。" },
+      { en: "I'm great.", zh: "我真棒。" },
+      { en: "The ox works.", zh: "公牛在干活。" },
+      { en: "The pig sleeps.", zh: "猪在睡觉。" }
+    ]
+  },
+  unit5: {
+    short: "U5 动物",
+    title: "Unit 5 · What is your favourite animal?",
+    words: [
+      { en: "dog", zh: "狗", emoji: "🐶" },
+      { en: "cat", zh: "猫", emoji: "🐱" },
+      { en: "fish", zh: "鱼", emoji: "🐟" },
+      { en: "bird", zh: "鸟", emoji: "🐦" },
+      { en: "hamster", zh: "仓鼠", emoji: "🐹" },
+      { en: "tortoise", zh: "乌龟", emoji: "🐢" },
+      { en: "lovely", zh: "可爱的", emoji: "🥰" },
+      { en: "queen bee", zh: "蜂后", emoji: "🐝", letter: "Qq" },
+      { en: "rabbit", zh: "兔子", emoji: "🐰", letter: "Rr" },
+      { en: "snake", zh: "蛇", emoji: "🐍", letter: "Ss" },
+      { en: "tiger", zh: "老虎", emoji: "🐯", letter: "Tt" }
+    ],
+    chants: [
+      ["It's a dog.", "Woof!"],
+      ["It's a cat.", "Miaow!"],
+      ["It's a fish.", "Splash!"],
+      ["It's a bird.", "Tweet!"],
+      ["What is it?", "A hamster!", "It's a hamster.", "It's a lovely hamster."],
+      ["What is it?", "A tortoise!", "It's a tortoise.", "It's a lovely tortoise."]
+    ],
+    letterLines: [
+      ["Q for queen bee.", "R for rabbit.", "The queen bee flies around.", "The rabbit runs around."],
+      ["S for snake.", "T for tiger.", "Who is the king,", "the snake or the tiger?"]
+    ],
+    sentences: [
+      { en: "It's a dog.", zh: "它是一只狗。" },
+      { en: "It's a cat.", zh: "它是一只猫。" },
+      { en: "It's a lovely hamster.", zh: "它是一只可爱的仓鼠。" },
+      { en: "It's a lovely tortoise.", zh: "它是一只可爱的乌龟。" },
+      { en: "The queen bee flies around.", zh: "蜂后飞来飞去。" },
+      { en: "The rabbit runs around.", zh: "兔子跑来跑去。" }
+    ]
+  },
+  unit6: {
+    short: "U6 颜色",
+    title: "Unit 6 · What colours can you see?",
+    words: [
+      { en: "colour", zh: "颜色", emoji: "🎨" },
+      { en: "kite", zh: "风筝", emoji: "🪁" },
+      { en: "red", zh: "红色", emoji: "🔴" },
+      { en: "yellow", zh: "黄色", emoji: "🟡" },
+      { en: "green", zh: "绿色", emoji: "🟢" },
+      { en: "favourite", zh: "最喜欢的", emoji: "⭐" },
+      { en: "duck", zh: "鸭子", emoji: "🦆", letter: "Uu" },
+      { en: "dove", zh: "鸽子", emoji: "🕊️", letter: "Vv" },
+      { en: "swan", zh: "天鹅", emoji: "🦢", letter: "Ww" },
+      { en: "fox", zh: "狐狸", emoji: "🦊", letter: "Xx" },
+      { en: "yak", zh: "牦牛", emoji: "🦬", letter: "Yy" },
+      { en: "zebra", zh: "斑马", emoji: "🦓", letter: "Zz" },
+      { en: "white", zh: "白色", emoji: "⚪" },
+      { en: "zoo", zh: "动物园", emoji: "🏛️" }
+    ],
+    chants: [
+      ["What colour is the kite?", "What colours can you see?", "Red, red, red.", "It's my favourite colour."],
+      ["What colour is the kite?", "What colours can you see?", "Yellow, yellow, yellow.", "It's my favourite colour."],
+      ["What colour is the kite?", "What colours can you see?", "Green, green, green.", "It's my favourite colour."]
+    ],
+    letterLines: [
+      ["A white duck,", "a white dove", "and a white swan."],
+      ["I see a fox.", "I see a yak.", "I see a zebra", "in the zoo."]
+    ],
+    sentences: [
+      { en: "What colour is the kite?", zh: "风筝是什么颜色？" },
+      { en: "What colours can you see?", zh: "你能看到什么颜色？" },
+      { en: "It's my favourite colour.", zh: "这是我最喜欢的颜色。" },
+      { en: "A white duck.", zh: "一只白鸭子。" },
+      { en: "I see a fox.", zh: "我看见一只狐狸。" },
+      { en: "I see a zebra in the zoo.", zh: "我在动物园看见斑马。" }
+    ]
+  }
+};
+
+const UNIT_KEYS = ["unit1","unit2","unit3","unit4","unit5","unit6"];
+const MODES = [
+  { id: "learn", name: "📚 认读" },
+  { id: "listen", name: "🎧 听选" },
+  { id: "match", name: "🃏 配对" },
+  { id: "spell", name: "✍️ 拼写" },
+  { id: "chant", name: "🎤 儿歌" },
+  { id: "sentence", name: "🧩 句子" }
+];
+
+let unitKey = "unit1";
+let modeId = "learn";
+let stars = Number(localStorage.getItem("kids_en_u16_stars") || localStorage.getItem("kids_en_u12_stars") || 0);
+let matchSpeak = localStorage.getItem("kids_en_match_speak") !== "0"; // default on
+let game = null;
+const $ = (id) => document.getElementById(id);
+const app = () => $("app");
+
+function saveStars() {
+  $("starBox").textContent = `⭐ ${stars}`;
+  localStorage.setItem("kids_en_u16_stars", String(stars));
+}
+function addStar(n = 1) { stars += n; saveStars(); burst(); }
+function pickVoice() {
+  const voices = speechSynthesis.getVoices();
+  return voices.find(x => /en(-|_)US/i.test(x.lang) && /female|samantha|google|zira|aria/i.test(x.name))
+    || voices.find(x => /^en/i.test(x.lang)) || null;
+}
+function speak(text, rate = 0.85, pitch = 1.05) {
+  if (!window.speechSynthesis) return;
+  window.speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = "en-US"; u.rate = rate; u.pitch = pitch;
+  const v = pickVoice(); if (v) u.voice = v;
+  speechSynthesis.speak(u);
+}
+function waitSpeak(text, rate, pitch) {
+  return new Promise((resolve) => {
+    if (!window.speechSynthesis) { resolve(); return; }
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = "en-US"; u.rate = rate; u.pitch = pitch;
+    const v = pickVoice(); if (v) u.voice = v;
+    u.onend = () => resolve(); u.onerror = () => resolve();
+    speechSynthesis.speak(u);
+  });
+}
+async function speakSing(phrases, highlightEls = []) {
+  if (!window.speechSynthesis) return;
+  window.speechSynthesis.cancel();
+  const melody = [1.15, 1.28, 1.38, 1.22, 1.32, 1.18, 1.4, 1.25];
+  for (let i = 0; i < phrases.length; i++) {
+    highlightEls.forEach((el, j) => el.classList.toggle("singing", j === i));
+    await waitSpeak(phrases[i], 0.72, melody[i % melody.length]);
+    await new Promise(r => setTimeout(r, 160));
+  }
+  highlightEls.forEach(el => el.classList.remove("singing"));
+}
+function asPhrases(item) {
+  if (Array.isArray(item)) return item.map(s => String(s).trim()).filter(Boolean);
+  return String(item).split(/(?<=[.?!])\s+/).map(s => s.trim()).filter(Boolean);
+}
+speechSynthesis?.getVoices?.();
+speechSynthesis?.addEventListener?.("voiceschanged", () => {});
+
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+function sample(arr, n) { return shuffle(arr).slice(0, n); }
+function setBar(p) { $("bar").style.width = `${Math.max(0, Math.min(100, p))}%`; }
+function burst() {
+  const box = $("confetti");
+  for (let i = 0; i < 14; i++) {
+    const s = document.createElement("div");
+    s.textContent = ["⭐","🎉","✨","🌟"][i % 4];
+    s.style.cssText = `position:absolute;left:${20+Math.random()*60}%;top:8%;font-size:${14+Math.random()*16}px;transition:1.8s ease-out;opacity:1;`;
+    box.appendChild(s);
+    requestAnimationFrame(() => {
+      s.style.transform = `translate(${(Math.random()-0.5)*180}px, ${360+Math.random()*160}px) rotate(${Math.random()*360}deg)`;
+      s.style.opacity = "0";
+    });
+    setTimeout(() => s.remove(), 1900);
+  }
+}
+
+function renderTabs() {
+  const unitChips = UNIT_KEYS.map(k =>
+    `<button class="chip ${unitKey===k?"active":""}" data-u="${k}">${DATA[k].short}</button>`
+  ).join("") + `<button class="chip ${unitKey==="all"?"active":""}" data-u="all">全部合练</button>`;
+  $("unitTabs").innerHTML = unitChips;
+  $("unitTabs").onclick = (e) => {
+    const b = e.target.closest("[data-u]"); if (!b) return;
+    unitKey = b.dataset.u; renderTabs(); render();
+  };
+  $("modeTabs").innerHTML = MODES.map(m =>
+    `<button class="chip ${modeId===m.id?"active":""}" data-m="${m.id}">${m.name}</button>`
+  ).join("");
+  $("modeTabs").onclick = (e) => {
+    const b = e.target.closest("[data-m]"); if (!b) return;
+    modeId = b.dataset.m; renderTabs(); render();
+  };
+}
+
+function currentWords() {
+  if (unitKey === "all") return UNIT_KEYS.flatMap(k => DATA[k].words);
+  return DATA[unitKey].words;
+}
+function currentUnit() {
+  if (unitKey !== "all") return DATA[unitKey];
+  return {
+    title: "Unit 1–6 全部合练",
+    words: currentWords(),
+    chants: UNIT_KEYS.flatMap(k => DATA[k].chants),
+    letterLines: UNIT_KEYS.flatMap(k => DATA[k].letterLines),
+    sentences: UNIT_KEYS.flatMap(k => DATA[k].sentences)
+  };
+}
+
+function renderLearn() {
+  const u = currentUnit();
+  setBar(0);
+  app().innerHTML = `
+    <h2>${u.title}</h2>
+    <p class="hint">点卡片听发音，再跟读。</p>
+    <div class="actions">
+      <button class="btn" id="playAll">🔊 全部朗读</button>
+      <button class="btn ghost" id="toListen">去听音选词 →</button>
+    </div>
+    <div class="grid" id="wordGrid"></div>`;
+  const grid = $("wordGrid");
+  u.words.forEach(w => {
+    const el = document.createElement("div");
+    el.className = "card";
+    el.innerHTML = `${w.letter?`<div class="letter">${w.letter}</div>`:""}<span class="emoji">${w.emoji}</span><div class="en">${w.en}</div><div class="zh">${w.zh}</div>`;
+    el.onclick = () => speak(w.en);
+    grid.appendChild(el);
+  });
+  $("playAll").onclick = async () => {
+    for (const w of u.words) { speak(w.en); await new Promise(r => setTimeout(r, 1050)); }
+  };
+  $("toListen").onclick = () => { modeId = "listen"; renderTabs(); render(); };
+}
+
+function startListenGame() {
+  let words = currentWords();
+  if (words.length > 12) words = sample(words, 12);
+  game = { type: "listen", pool: shuffle(words), i: 0, correct: 0, all: currentWords() };
+  showListenRound();
+}
+function showListenRound() {
+  const words = game.all;
+  if (game.i >= game.pool.length) {
+    setBar(100);
+    app().innerHTML = `<h2>🎧 完成！</h2><div class="game-box"><div class="big-emoji">🏆</div><div class="prompt">答对 ${game.correct}/${game.pool.length}</div>
+      <button class="btn" id="again">再玩一次</button><button class="btn alt" id="nextMode">去图文配对 →</button></div>`;
+    if (game.correct === game.pool.length) addStar(3); else if (game.correct >= game.pool.length*0.7) addStar(1);
+    $("again").onclick = startListenGame;
+    $("nextMode").onclick = () => { modeId = "match"; renderTabs(); render(); };
+    return;
+  }
+  const target = game.pool[game.i];
+  const opts = shuffle([target, ...sample(words.filter(w => w.en !== target.en), Math.min(3, words.length-1))]);
+  setBar((game.i / game.pool.length) * 100);
+  app().innerHTML = `<h2>🎧 听音选词 <span style="color:#9a3412;font-size:.85rem">${game.i+1}/${game.pool.length}</span></h2>
+    <p class="hint">先点喇叭听，再选出正确单词。</p>
+    <div class="game-box"><button class="btn" id="hear">🔊 再听一遍</button>
+    <div class="big-emoji" id="hintEmoji" style="filter:grayscale(1);opacity:.35">❓</div>
+    <div class="choices" id="choices"></div><div class="feedback" id="fb"></div></div>`;
+  const play = () => speak(target.en); play(); $("hear").onclick = play;
+  const box = $("choices");
+  opts.forEach(o => {
+    const b = document.createElement("button"); b.className = "choice"; b.textContent = o.en;
+    b.onclick = () => {
+      if (b.disabled) return;
+      [...box.children].forEach(x => x.disabled = true);
+      if (o.en === target.en) {
+        b.classList.add("correct"); $("fb").className="feedback ok";
+        $("fb").textContent=`太棒了！${target.emoji} ${target.en}`;
+        $("hintEmoji").textContent=target.emoji; $("hintEmoji").style.filter="none"; $("hintEmoji").style.opacity="1";
+        game.correct++; addStar(1); setTimeout(()=>{game.i++; showListenRound();}, 850);
+      } else {
+        b.classList.add("wrong"); $("fb").className="feedback bad"; $("fb").textContent=`答案是 ${target.en}`;
+        setTimeout(()=>{game.i++; showListenRound();}, 1000);
+      }
+    };
+    box.appendChild(b);
+  });
+}
+
+function startMatchGame() {
+  const words = sample(currentWords(), Math.min(6, currentWords().length));
+  game = { type:"match", left:shuffle(words.map(w=>({...w,side:"emoji"}))), right:shuffle(words.map(w=>({...w,side:"en"}))), picked:null, done:0, total:words.length };
+  showMatch();
+}
+function showMatch() {
+  setBar((game.done / game.total) * 100);
+  if (game.done >= game.total) {
+    app().innerHTML = `<h2>🃏 配对成功！</h2><div class="game-box"><div class="big-emoji">🌟</div><div class="prompt">全部配对完成</div>
+      <button class="btn" id="again">再玩一次</button><button class="btn alt" id="nextMode">去拼写闯关 →</button></div>`;
+    addStar(2); $("again").onclick = startMatchGame;
+    $("nextMode").onclick = () => { modeId="spell"; renderTabs(); render(); };
+    return;
+  }
+  const colors = ["#fecaca","#fed7aa","#fef08a","#bbf7d0","#bfdbfe","#ddd6fe","#fbcfe8"];
+  app().innerHTML = `<h2>🃏 图文配对</h2>
+    <div class="opt-row">
+      <label><input type="checkbox" id="matchSpeakOpt" ${matchSpeak ? "checked" : ""} /> 点击图片/单词时朗读</label>
+    </div>
+    <p class="hint">先点左边大图，再点右边单词。</p>
+    <div class="match-board"><div><div class="match-col-title">大图</div><div class="match-pics" id="left"></div></div>
+    <div><div class="match-col-title">单词</div><div class="match-words" id="right"></div></div></div>
+    <div class="feedback" id="fb"></div>`;
+  const speakOpt = $("matchSpeakOpt");
+  if (speakOpt) {
+    speakOpt.onchange = () => {
+      matchSpeak = speakOpt.checked;
+      localStorage.setItem("kids_en_match_speak", matchSpeak ? "1" : "0");
+    };
+  }
+  game.left.forEach((item, idx) => {
+    if (item.matched) return;
+    const b = document.createElement("button");
+    b.className = "pic-tile" + (game.picked && game.picked.en===item.en && game.picked.side===item.side ? " selected":"");
+    b.style.background = `linear-gradient(160deg,#fff 0%, ${colors[idx%colors.length]} 100%)`;
+    b.innerHTML = `<span class="pic-emoji">${item.emoji}</span><span class="pic-zh">${item.zh.split("/")[0].trim()}</span>`;
+    b.onclick = () => onPick(item); $("left").appendChild(b);
+  });
+  game.right.forEach(item => {
+    if (item.matched) return;
+    const b = document.createElement("button");
+    b.className = "word-tile choice" + (game.picked && game.picked.en===item.en && game.picked.side===item.side ? " selected":"");
+    b.textContent = item.en; b.onclick = () => onPick(item); $("right").appendChild(b);
+  });
+}
+function maybeSpeakMatch(word) { if (matchSpeak) speak(word); }
+function onPick(item) {
+  if (!game.picked) { game.picked = item; showMatch(); maybeSpeakMatch(item.en); return; }
+  if (game.picked.side === item.side) { game.picked = item; showMatch(); maybeSpeakMatch(item.en); return; }
+  if (game.picked.en === item.en) {
+    game.left.forEach(x => { if (x.en===item.en) x.matched=true; });
+    game.right.forEach(x => { if (x.en===item.en) x.matched=true; });
+    game.done++; game.picked=null; addStar(1); showMatch();
+    const fb=$("fb"); if (fb){ fb.className="feedback ok"; fb.textContent="配对成功！"; }
+  } else {
+    const fb=$("fb"); if (fb){ fb.className="feedback bad"; fb.textContent="不对哦，再试一次"; }
+    game.picked=null; setTimeout(showMatch, 400);
+  }
+}
+
+function startSpellGame() {
+  let words = shuffle(currentWords().filter(w => w.en.length <= 12 && !w.en.includes(" ")));
+  if (words.length > 10) words = words.slice(0, 10);
+  if (!words.length) words = sample(currentWords(), Math.min(8, currentWords().length));
+  game = { type:"spell", pool:words, i:0, correct:0 };
+  showSpell();
+}
+function showSpell() {
+  if (game.i >= game.pool.length) {
+    setBar(100);
+    app().innerHTML = `<h2>✍️ 拼写完成</h2><div class="game-box"><div class="big-emoji">🏅</div><div class="prompt">拼对 ${game.correct}/${game.pool.length}</div>
+      <button class="btn" id="again">再玩一次</button><button class="btn alt" id="nextMode">去儿歌点读 →</button></div>`;
+    addStar(game.correct===game.pool.length?3:1);
+    $("again").onclick = startSpellGame;
+    $("nextMode").onclick = () => { modeId="chant"; renderTabs(); render(); };
+    return;
+  }
+  const w = game.pool[game.i];
+  const hint = w.en[0] + "_".repeat(Math.max(0, w.en.length-1));
+  setBar((game.i/game.pool.length)*100);
+  app().innerHTML = `<h2>✍️ 拼写闯关 <span style="color:#9a3412;font-size:.85rem">${game.i+1}/${game.pool.length}</span></h2>
+    <p class="hint">看图、听发音，拼出单词。</p>
+    <div class="game-box"><div class="big-emoji">${w.emoji}</div>
+    <div style="color:#6b7280">${w.zh}　提示：${hint}</div>
+    <button class="btn ghost" id="hear">🔊 听发音</button>
+    <input class="spell-input" id="inp" autocomplete="off" autocapitalize="off" spellcheck="false" />
+    <div class="actions"><button class="btn" id="check">检查</button><button class="btn ghost" id="skip">不会，下一题</button></div>
+    <div class="feedback" id="fb"></div></div>`;
+  const inp=$("inp"); inp.focus();
+  $("hear").onclick=()=>speak(w.en); speak(w.en);
+  const goNext=ok=>{ if(ok){game.correct++; addStar(1);} game.i++; setTimeout(showSpell,650); };
+  const check=()=>{
+    if (inp.value.trim().toLowerCase()===w.en.toLowerCase()){ $("fb").className="feedback ok"; $("fb").textContent=`正确！${w.en}`; goNext(true); }
+    else { $("fb").className="feedback bad"; $("fb").textContent=`再试试，答案是 ${w.en}`; speak(w.en); }
+  };
+  $("check").onclick=check; inp.onkeydown=e=>{ if(e.key==="Enter") check(); };
+  $("skip").onclick=()=>{ $("fb").className="feedback bad"; $("fb").textContent=`答案：${w.en}`; goNext(false); };
+}
+
+function renderChant() {
+  const u = currentUnit();
+  setBar(0);
+  let songs = [
+    ...u.chants.map((t,i)=>({title:`儿歌 ${i+1}`, phrases:asPhrases(t)})),
+    ...u.letterLines.map((t,i)=>({title:`字母歌 ${i+1}`, phrases:asPhrases(t)}))
+  ];
+  if (unitKey==="all" && songs.length>10) songs = songs.slice(0,10);
+  app().innerHTML = `<h2>🎤 儿歌 & 字母歌</h2><p class="hint">点短句听唱；「唱整首」带起伏语调。</p><div id="chants"></div>`;
+  const box=$("chants");
+  songs.forEach((song,sIdx)=>{
+    const block=document.createElement("div"); block.className="chant-block";
+    block.innerHTML=`<h3>🎵 ${song.title}</h3><div class="actions">
+      <button class="btn sing-all" data-s="${sIdx}">🎶 唱整首</button>
+      <button class="btn ghost slow-all" data-s="${sIdx}">🐢 慢速跟读</button></div>
+      <div class="phrases" data-s="${sIdx}"></div>`;
+    const pb=block.querySelector(".phrases");
+    song.phrases.forEach((p,pIdx)=>{
+      const line=document.createElement("div"); line.className="phrase-line";
+      line.dataset.s=String(sIdx); line.dataset.p=String(pIdx);
+      line.innerHTML=`<span class="num">${pIdx+1}</span><span>${p}</span>`;
+      pb.appendChild(line);
+    });
+    box.appendChild(block);
+  });
+  box.onclick = async (e) => {
+    const singAll=e.target.closest(".sing-all");
+    const slowAll=e.target.closest(".slow-all");
+    const line=e.target.closest(".phrase-line");
+    if (singAll) {
+      const sIdx=Number(singAll.dataset.s);
+      const els=[...box.querySelectorAll(`.phrase-line[data-s="${sIdx}"]`)];
+      await speakSing(songs[sIdx].phrases, els); addStar(1); return;
+    }
+    if (slowAll) {
+      const sIdx=Number(slowAll.dataset.s);
+      const els=[...box.querySelectorAll(`.phrase-line[data-s="${sIdx}"]`)];
+      window.speechSynthesis.cancel();
+      for (let i=0;i<songs[sIdx].phrases.length;i++){
+        els.forEach((el,j)=>el.classList.toggle("singing", j===i));
+        await waitSpeak(songs[sIdx].phrases[i], 0.62, 1.08);
+        await new Promise(r=>setTimeout(r,220));
+      }
+      els.forEach(el=>el.classList.remove("singing")); addStar(1); return;
+    }
+    if (line) {
+      const sIdx=Number(line.dataset.s), pIdx=Number(line.dataset.p);
+      const els=[...box.querySelectorAll(`.phrase-line[data-s="${sIdx}"]`)];
+      const melody=[1.15,1.28,1.38,1.22,1.32,1.18,1.4,1.25];
+      els.forEach((el,j)=>el.classList.toggle("singing", j===pIdx));
+      await waitSpeak(songs[sIdx].phrases[pIdx], 0.72, melody[pIdx%melody.length]);
+      els.forEach(el=>el.classList.remove("singing"));
+    }
+  };
+}
+
+function startSentenceGame() {
+  let sents = shuffle(currentUnit().sentences);
+  if (sents.length > 8) sents = sents.slice(0, 8);
+  game = { type:"sentence", pool:sents, i:0, correct:0 };
+  showSentence();
+}
+function showSentence() {
+  if (game.i >= game.pool.length) {
+    setBar(100);
+    app().innerHTML = `<h2>🧩 句子完成</h2><div class="game-box"><div class="big-emoji">🎉</div><div class="prompt">拼对 ${game.correct}/${game.pool.length}</div>
+      <button class="btn" id="again">再玩一次</button><button class="btn alt" id="learn">回认读卡片</button></div>`;
+    addStar(game.correct===game.pool.length?3:1);
+    $("again").onclick=startSentenceGame;
+    $("learn").onclick=()=>{ modeId="learn"; renderTabs(); render(); };
+    return;
+  }
+  const s=game.pool[game.i];
+  const words=s.en.replace(/[.,!?]/g,"").split(/\s+/);
+  const bank=shuffle(words.map(w=>({w, used:false})));
+  game.answer=[]; game.targetWords=words;
+  setBar((game.i/game.pool.length)*100);
+  app().innerHTML = `<h2>🧩 句子拼拼乐 <span style="color:#9a3412;font-size:.85rem">${game.i+1}/${game.pool.length}</span></h2>
+    <p class="hint">中文：${s.zh}　先听原句，再按顺序点词。</p>
+    <div class="actions"><button class="btn" id="hear">🔊 听原句</button><button class="btn ghost" id="reset">清空重来</button></div>
+    <div class="scramble-answer" id="answer"></div><div class="scramble-bank" id="bank"></div>
+    <div class="actions"><button class="btn alt" id="check">检查句子</button><button class="btn ghost" id="skip">看答案</button></div>
+    <div class="feedback" id="fb"></div>`;
+  $("hear").onclick=()=>speak(s.en,0.8); speak(s.en,0.8);
+  const paint=()=>{
+    $("answer").innerHTML=game.answer.map((w,i)=>`<button class="word-chip" data-a="${i}">${w}</button>`).join("")||'<span style="color:#9ca3af">点下面的词拼到这里</span>';
+    $("bank").innerHTML=bank.map((item,i)=>item.used?"":`<button class="word-chip" data-b="${i}">${item.w}</button>`).join("");
+  };
+  paint();
+  app().onclick=(e)=>{
+    const b=e.target.closest("[data-b]"); const a=e.target.closest("[data-a]");
+    if(b){ const i=Number(b.dataset.b); bank[i].used=true; game.answer.push(bank[i].w); paint(); }
+    if(a){ const i=Number(a.dataset.a); const word=game.answer.splice(i,1)[0]; const item=bank.find(x=>x.w===word&&x.used); if(item) item.used=false; paint(); }
+  };
+  $("reset").onclick=()=>{ game.answer=[]; bank.forEach(x=>x.used=false); paint(); $("fb").textContent=""; };
+  $("check").onclick=()=>{
+    const got=game.answer.join(" ").toLowerCase();
+    const want=game.targetWords.join(" ").toLowerCase();
+    if(got===want){ $("fb").className="feedback ok"; $("fb").textContent="完美！"; game.correct++; addStar(1); setTimeout(()=>{game.i++; showSentence();},850); }
+    else { $("fb").className="feedback bad"; $("fb").textContent="顺序还不对，再听听～"; speak(s.en,0.75); }
+  };
+  $("skip").onclick=()=>{ $("fb").className="feedback bad"; $("fb").textContent=`答案：${s.en}`; speak(s.en,0.75); setTimeout(()=>{game.i++; showSentence();},1300); };
+}
+
+function render() {
+  window.speechSynthesis?.cancel();
+  if (modeId==="learn") return renderLearn();
+  if (modeId==="listen") return startListenGame();
+  if (modeId==="match") return startMatchGame();
+  if (modeId==="spell") return startSpellGame();
+  if (modeId==="chant") return renderChant();
+  if (modeId==="sentence") return startSentenceGame();
+}
+saveStars(); renderTabs(); render();
+</script>
+</body></html>
