@@ -213,7 +213,27 @@
     .match-pics, .match-words { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   }
   .confetti { position: fixed; inset: 0; pointer-events: none; z-index: 50; overflow: hidden; }
-</style></head><body><header><div class="wrap"><div class="toprow"><h1>🎈 一年级英语趣味练习</h1><div class="stars" id="starBox">⭐ 0</div></div><div class="unit-tabs" id="unitTabs"></div><div class="mode-tabs" id="modeTabs"></div></div></header><main class="wrap"><div class="progress"><i id="bar"></i></div><div id="app" class="panel"></div></main><footer>课本 Chants · Unit 1–6 · 本地单页，浏览器语音朗读</footer><div class="confetti" id="confetti"></div>
+
+  #openTip {
+    display: none;
+    margin: 10px 12px;
+    padding: 12px 14px;
+    border-radius: 14px;
+    background: #fff1f2;
+    border: 2px solid #fb7185;
+    color: #9f1239;
+    font-weight: 700;
+    line-height: 1.55;
+    font-size: .95rem;
+  }
+  #openTip.show { display: block; }
+  #openTip ol { margin: 8px 0 0; padding-left: 1.2em; font-weight: 600; }
+</style></head><body><div id="openTip" role="alert">手机上如果只看到一小段文字或空白：这是微信内置预览造成的，<b>不是缺文件</b>。请用系统浏览器打开：
+<ol>
+<li>点右上角「···」→「用浏览器打开」或「其他应用打开」→ Safari / Chrome</li>
+<li>或把文件存到「文件」App，再用 Safari 打开</li>
+</ol>
+本页是完整单文件，不需要其它配套文件。</div><header><div class="wrap"><div class="toprow"><h1>🎈 一年级英语趣味练习</h1><div class="stars" id="starBox">⭐ 0</div></div><div class="unit-tabs" id="unitTabs"></div><div class="mode-tabs" id="modeTabs"></div></div></header><main class="wrap"><div class="progress"><i id="bar"></i></div><div id="app" class="panel"><p style="margin:0;color:#9a3412;font-weight:700;line-height:1.6">正在加载练习…若一直空白，请用 Safari / Chrome 打开本文件（不要用微信直接预览）。本页是单个完整 HTML，不缺文件。</p></div></main><footer>课本 Chants · Unit 1–6 · 本地单页，浏览器语音朗读</footer><div class="confetti" id="confetti"></div>
 <script>
 const DATA = {
   unit1: {
@@ -842,6 +862,14 @@ function render() {
   if (modeId==="chant") return renderChant();
   if (modeId==="sentence") return startSentenceGame();
 }
+
+(function(){
+  const ua = navigator.userAgent || "";
+  const inWeChat = /MicroMessenger/i.test(ua);
+  const tip = document.getElementById("openTip");
+  if (tip && inWeChat) tip.classList.add("show");
+})();
+
 saveStars(); renderTabs(); render();
 </script>
 </body></html>
